@@ -1,6 +1,9 @@
 const express = require("express");
+const { WebSocketServer } = require("ws");
+const http = require("http");
 
 const app = express();
+const server = http.createServer(app);
 const PORT = 4000;
 
 app.use(express.json());
@@ -13,6 +16,6 @@ app.get("/health", (req, res) => {
     res.json({ status: "ok" });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
