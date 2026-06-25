@@ -16,6 +16,17 @@ app.get("/health", (req, res) => {
     res.json({ status: "ok" });
 });
 
+const wss = new WebSocketServer({ server });
+
+wss.on("connection", (ws) => {
+    console.log("Client connected");
+
+    ws.on("message", (message) => {
+        console.log("Message received:", message.toString());
+    });
+
+});
+
 server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
