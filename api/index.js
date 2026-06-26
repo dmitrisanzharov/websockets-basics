@@ -18,12 +18,26 @@ app.get("/health", (req, res) => {
 
 const wss = new WebSocketServer({ server });
 
+// when a client connects
 wss.on("connection", (ws) => {
+    console.log('ws', ws);
     console.log("Client connected");
 
+    // when client messages
     ws.on("message", (message) => {
         console.log("Message received:", message.toString());
     });
+
+    // send message to client
+    ws.send("Hello from server");
+
+    // when client closes
+    ws.on("close", () => {
+        console.log("Client disconnected");
+    });
+
+    // server disconnects from client
+    ws.close(1000, "Normal closure");
 
 });
 
