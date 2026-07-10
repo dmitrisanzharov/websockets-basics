@@ -36,8 +36,14 @@ wss.on("connection", (ws) => {
         console.log("Client disconnected");
     });
 
+    // secondary message for REACT state update demo
+    setTimeout(() => {
+        ws.send("Hello from server 2");
+    }, 3000);
+
+
     // server disconnects from client
-    ws.close(1000, "Normal closure");
+    // ws.close(1000, "Normal closure");
 
 });
 

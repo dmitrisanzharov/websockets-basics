@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
+    const [message, setMessage] = useState<string>("none"); // state
     const ws = useRef<WebSocket | null>(null);
 
     useEffect(() => {
@@ -16,6 +17,7 @@ function App() {
         ws.current.onmessage = (event) => {
             console.log('event', event);
             console.log("Message from server:", event.data);
+            setMessage(event.data); // state update demo
         };
 
 
@@ -31,7 +33,7 @@ function App() {
 
     console.log('ws', ws);
 
-    return <div>WebSocket Test</div>;
+    return <div>WebSocket Test - {message}</div>;
 }
 
 export default App;
