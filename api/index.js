@@ -1,6 +1,6 @@
-const express = require("express");
-const { WebSocketServer } = require("ws");
-const http = require("http");
+const express = require('express');
+const { WebSocketServer } = require('ws');
+const http = require('http');
 
 const app = express();
 
@@ -25,22 +25,29 @@ wss.on('connection', (ws) => {
         ws.send('message received on server side after client message');
     });
 
+    setTimeout(() => {
+        ws.send('message from server 1');
+    }, 1500);
+
+    setTimeout(() => {
+        ws.send('message from server 2');
+    }, 3000);
 
     // when client disconnect message server
     ws.on('close', () => {
         console.log('client disconnected');
     });
 
-})
-
-
-// HTTP server
-app.get("/", (req, res) => {
-    res.send("Hello World");
+    // ws.close(1000, 'Normal closure');
 });
 
-app.get("/health", (req, res) => {
-    res.json({ status: "ok" });
+// HTTP server
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
 });
 
 server.listen(PORT, () => {
